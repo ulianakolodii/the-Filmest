@@ -1,9 +1,16 @@
 <script setup lang="ts">
-import HelloWorld from './components/mainPage.vue'
+import '../node_modules/scss-reset/src/scss/_reset.scss'
+import mainPage from './components/mainPage.vue'
 </script>
 
 <template>
-  <div><HelloWorld /></div>
+  <div><mainPage /></div>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+div {
+  width: 100vw;
+  height: 100vh;
+  background-color: #3b4248;
+}
+</style>
