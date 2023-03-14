@@ -1,14 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { RouterLink } from 'vue-router'
+</script>
 
 <template>
-  <div class="nav_container">
+  <nav class="nav_container">
     <p class="menu_title">menu</p>
-    <p class="menu_item">- all films</p>
-    <p class="menu_item">- find films</p>
-    <p class="menu_item">- favorite films</p>
+    <RouterLink to="/" class="menu_item">- all films</RouterLink>
+    <RouterLink to="/favorites" class="menu_item">- favorite films</RouterLink>
     <p class="menu_title">general</p>
     <p class="menu_item">- log out</p>
-  </div>
+  </nav>
 </template>
 
 <style scoped lang="scss">
@@ -28,6 +29,7 @@
   }
 
   .menu_item {
+    cursor: pointer;
   }
 }
 </style>

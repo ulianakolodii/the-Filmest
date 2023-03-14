@@ -1,8 +1,7 @@
 <script setup lang="ts">
+import { RouterView } from 'vue-router'
 import sideMenu from './sideMenu.vue'
 import findInput from './findInput.vue'
-import filmMenu from './filmMenu.vue';
-
 </script>
 
 <template>
@@ -19,7 +18,7 @@ import filmMenu from './filmMenu.vue';
         <div class="side_container">
           <sideMenu />
         </div>
-        <filmMenu />
+        <RouterView />
       </div>
     </div>
   </div>
@@ -56,7 +55,7 @@ import filmMenu from './filmMenu.vue';
     }
   }
 
-  .body_container{
+  .body_container {
     display: flex;
     flex-direction: row;
   }
