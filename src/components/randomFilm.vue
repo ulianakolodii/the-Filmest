@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <div class="random_container">
-    <p class="film_title">Blade Runner 2049</p>
+    <!-- <p class="film_title">Blade Runner 2049</p> -->
     <div class="img_wrapper"><img src="https://images2.alphacoders.com/870/870886.jpg" /></div>
     <div class="film_buttons">
       <button class="watch_button">

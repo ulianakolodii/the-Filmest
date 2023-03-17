@@ -39,7 +39,7 @@ onMounted(async () => {
           <p class="film_title">{{ film.title }}</p>
           <p class="film_overview">{{ film.overview }}</p>
           <button class="discover_button">
-            <RouterLink class="discover_link" :to="`films/${film.id}`">...more</RouterLink>
+            <RouterLink class="discover_link" :to="`film/${film.id}`">...more</RouterLink>
           </button>
         </li>
       </ul>
