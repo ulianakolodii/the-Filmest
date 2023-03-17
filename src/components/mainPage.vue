@@ -52,7 +52,7 @@ import findInput from './findInput.vue'
       color: $general-text_color;
 
       .color_text {
-        color: orangered;
+        color: $emphasis-color;
       }
     }
   }
