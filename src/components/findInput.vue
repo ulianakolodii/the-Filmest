@@ -7,12 +7,13 @@
 </template>
 
 <style scoped lang="scss">
+@import '../utilities/common.scss';
 input {
   width: 200px;
   height: 30px;
-  color: rgb(226, 226, 226);
+  color: $general-text_color;
   background-color: transparent;
-  border: 1px solid rgb(226, 226, 226);
+  border: 1px solid $general-text_color;
   border-radius: 25px;
   padding-left: 10px;
 }

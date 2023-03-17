@@ -13,6 +13,7 @@ import { RouterLink } from 'vue-router'
 </template>
 
 <style scoped lang="scss">
+@import '../utilities/common.scss';
 .nav_container {
   padding: 30px;
   display: flex;
@@ -20,16 +21,18 @@ import { RouterLink } from 'vue-router'
   gap: 16px;
   width: 200px;
   height: auto;
-  color: rgb(226, 226, 226);
-  border-right: 1px solid rgb(226, 226, 226);
+  border-right: 1px solid $general-text_color;
 
   .menu_title {
+    color: $general-text_color;
     font-size: 24px;
     margin-top: 20px;
   }
 
   .menu_item {
     cursor: pointer;
+    color: $general-text_color;
+    text-decoration: none;
   }
 }
 </style>

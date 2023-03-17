@@ -6,13 +6,16 @@ import { RouterLink } from 'vue-router'
   <div class="random_container">
     <div class="img_wrapper"><img src="https://images2.alphacoders.com/870/870886.jpg" /></div>
     <div class="film_buttons">
-      <button class="watch_button"><RouterLink to="film/1">watch</RouterLink></button>
+      <button class="watch_button">
+        <RouterLink class="watch_link" to="film/1">watch</RouterLink>
+      </button>
       <button class="add_button">+</button>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+@import '../utilities/common.scss';
 .img_wrapper {
   margin: 0 30px;
   display: flex;
@@ -34,8 +37,12 @@ import { RouterLink } from 'vue-router'
     width: 70px;
     height: 35px;
     border-radius: 15px;
-    background-color: #d92026;
-    color: rgb(226, 226, 226);
+    background-color: $important_button-color;
+    text-decoration: none;
+    .watch_link {
+      color: $general-text_color;
+      text-decoration: none;
+    }
   }
 
   .add_button {
@@ -43,7 +50,7 @@ import { RouterLink } from 'vue-router'
     height: 35px;
     border-radius: 15px;
     background-color: rgb(226, 226, 226, 0.4);
-    color: rgb(226, 226, 226);
+    color: $general-text_color;
     font-weight: bold;
   }
 }

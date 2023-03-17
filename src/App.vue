@@ -10,7 +10,7 @@ import mainPage from './components/mainPage.vue'
 <style scoped lang="scss">
 div {
   width: 100vw;
-  height: 100vh;
+  height: fit-content;
   background-color: #3b4248;
 }
 </style>

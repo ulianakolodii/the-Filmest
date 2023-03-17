@@ -25,16 +25,18 @@ import findInput from './findInput.vue'
 </template>
 
 <style scoped lang="scss">
+@import '../utilities/common.scss';
 .main_container {
   display: flex;
+  justify-content: center;
   .content_container {
-    margin: auto;
+    margin: 50px;
     padding-top: 30px;
     width: 1200px;
-    height: 800px;
-    background-color: #202328;
+    height: fit-content;
+    background-color: $general-background_color;
     border-radius: 25px;
-    box-shadow: 10px 10px 25px #1b1b1c;
+    box-shadow: 10px 10px 25px $box-shadow_color;
   }
   .header_container {
     display: flex;
@@ -47,7 +49,7 @@ import findInput from './findInput.vue'
       display: flex;
       flex-direction: row;
       gap: 4px;
-      color: rgb(226, 226, 226);
+      color: $general-text_color;
 
       .color_text {
         color: orangered;
