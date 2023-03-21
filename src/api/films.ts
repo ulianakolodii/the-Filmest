@@ -23,7 +23,7 @@ export const fetchFilms = async () => {
   return films
 }
 
-export const fetchFilm = async (filmId: any) => {
+export const fetchFilm = async (filmId: string | string[]) => {
   const res = await fetch(
     `https://api.themoviedb.org/3/movie/${filmId}?&api_key=cfe422613b250f702980a3bbf9e90716`
   )
