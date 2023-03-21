@@ -5,63 +5,73 @@ import findInput from './findInput.vue'
 </script>
 
 <template>
-  <div class="main_container">
-    <div class="content_container">
-      <div class="header_container">
-        <div class="main_title">
-          <p class="color_text">the</p>
+  <main>
+    <div class="wrapper">
+      <div class="header">
+        <div class="main-title">
+          <p class="color-text">the</p>
           Filmest
         </div>
         <findInput />
       </div>
-      <div class="body_container">
-        <div class="side_container">
-          <sideMenu />
+      <div class="body">
+        <sideMenu />
+        <div class="content">
+          <RouterView />
         </div>
-        <RouterView />
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <style scoped lang="scss">
 @import '../utilities/common.scss';
-.main_container {
+main {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #3b4248;
   display: flex;
   justify-content: center;
-  height: fit-content;
-  @media (max-width: 890px) {
-    }
-  .content_container {
-    margin: 50px;
-    padding: 30px;
+  align-items: center;
+
+  .wrapper {
+    margin: 40px;
     width: 1200px;
-    background-color: $general-background_color;
-    border-radius: 25px;
-    box-shadow: 10px 10px 25px $box-shadow_color;
-  }
-  .header_container {
+    background: #202328;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    .main_title {
-      font-size: 36px;
-      padding: 16px;
-      margin-right: 64px;
+    flex-direction: column;
+    border-radius: 24px;
+    padding: 30px;
+
+    .header {
       display: flex;
       flex-direction: row;
-      gap: 4px;
-      color: $general-text_color;
+      align-items: center;
+      .main-title {
+        font-size: 36px;
+        padding: 16px;
+        margin-right: 64px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 4px;
+        color: $general-text_color;
 
-      .color_text {
-        color: $emphasis-color;
+        .color-text {
+          color: $emphasis-color;
+        }
       }
     }
-  }
 
-  .body_container {
-    display: flex;
-    flex-direction: row;
+    .body {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+    }
   }
 }
 </style>

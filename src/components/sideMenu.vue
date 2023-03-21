@@ -21,7 +21,7 @@ import { RouterLink } from 'vue-router'
   gap: 16px;
   width: 200px;
   height: auto;
-  border-right: 1px solid $general-text_color;
+  border-right: 1px solid $sidebar-border_color;
 
   .menu_title {
     color: $general-text_color;

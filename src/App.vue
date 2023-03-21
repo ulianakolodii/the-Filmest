@@ -4,13 +4,8 @@ import mainPage from './components/mainPage.vue'
 </script>
 
 <template>
-  <div><mainPage /></div>
+  <mainPage />
 </template>
 
 <style scoped lang="scss">
-div {
-  width: 100vw;
-  min-height: 100vh;
-  background-color: #3b4248;
-}
 </style>

@@ -1,135 +1,114 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { fetchFilm } from '../api/films'
 const film = ref()
 
 const route = useRoute()
-onBeforeMount(async () => {
+onMounted(async () => {
   const filmId = route.params.id
   film.value = await fetchFilm(filmId)
 })
-
-const filmReleaseDate = () => {
-  return film.value.release_date.slice(0, 4)
-}
 </script>
 
 <template>
-  <div class="film_container">
-    <div>
-      <div class="poster_container">
-        <img class="film_poster" :src="`https://image.tmdb.org/t/p/w500${film.poster_path}`" />
-        <div class="poster_shadow"></div>
-      </div>
+  <div class="main-container">
+    <div class="poster-container">
+      <img class="poster-image" :src="`https://image.tmdb.org/t/p/w500${film?.poster_path}`" />
+      <div class="poster-shade"></div>
     </div>
-    <div class="film_description">
-      <div class="website-title_container">
-        <p class="color_text">the</p>
-        <p>Film</p>
+    <div class="info-container">
+      <div class="website-title">
+        <span class="color-text">the</span>
+        <span>Film</span>
       </div>
-      <p class="film_title">{{ film?.title }}</p>
-      <p class="film_tagline">{{ film?.tagline }}</p>
-      <div class="film_tags">
-        <span>
-          <p v-for="genre in film?.genres" :key="genre.id">{{ genre?.name }}</p>
-        </span>
-        <span>
-          <p v-for="country in film?.production_countries" :key="country.iso_3166_1">
-            {{ country?.iso_3166_1 }}
-          </p>
-        </span>
-        <p>{{ filmReleaseDate() }}</p>
-        <p>{{ film?.runtime }} min</p>
+      <span class="title">
+        {{ film?.title }}
+      </span>
+      <span class="tagline">{{ film?.tagline }}</span>
+      <div class="tags">
+        <div class="genres">
+          {{ film?.genres?.map((el) => el.name).join(', ') }}
+        </div>
+        <div class="countries">
+          {{ film?.production_countries.map((el) => el.iso_3166_1).join(', ') }}
+        </div>
+        <div class="release-date">
+          {{ film?.release_date.slice(0, 4) }}
+        </div>
+        <div class="runtime">{{ film?.runtime }} min</div>
       </div>
-      <div class="film_companies">
-        <span v-for="company in film?.production_companies" :key="company.id">{{
-          company.name
-        }}</span>
+      <div class="companies">
+        {{ film?.production_companies?.map((el) => el.name).join(', ') }}
       </div>
-      <p class="film_overview">{{ film.overview }}</p>
+      <div class="overview">{{ film?.overview }}</div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 @import '../utilities/common.scss';
-.film_container {
+
+.main-container {
   display: flex;
-  flex-direction: row;
-  position: relative;
-  padding-left: 30px;
-  width: 850px;
-  @media (max-width: 1150px) {
-    width: 780px;
-  }
-  @media (max-width: 1070px) {
-    width: 700px;
-  }
   @media (max-width: 970px) {
-    width: 600px;
-  }
-  @media (max-width: 890px) {
     flex-direction: column;
   }
-
-  .poster_container {
+  .poster-container {
+    display: flex;
     position: relative;
-    .film_poster {
+    padding-left: 30px;
+
+    .poster-image {
       max-width: 250px;
     }
-    .poster_shadow {
+
+    .poster-shade {
       position: absolute;
       top: 0;
-      left: 0;
       width: 250px;
       height: 390px;
       background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, $general-background_color 100%);
     }
   }
-
-  .film_description {
+  .info-container {
+    z-index: 10;
+    margin-left: -40px;
     display: flex;
     flex-direction: column;
-    position: absolute;
-    left: 250px;
     color: $general-text_color;
     padding-top: 40px;
+    @media (max-width: 970px) {
+    margin-left: 24px;
+  }
 
-    @media (max-width: 890px) {
-      position: relative;
-      left: 0;
-      padding-top: 20px;
-      width: 300px;
-    }
-
-    .website-title_container {
+    .website-title {
       display: flex;
       opacity: 60;
 
-      .color_text {
+      .color-text {
         color: $emphasis-color;
         margin-right: 4px;
       }
     }
 
-    .film_title {
+    .title {
       font-size: 36px;
       margin-top: -5px;
     }
-    .film_tagline {
+    .tagline {
       font-style: italic;
       opacity: 60%;
       margin-top: -6px;
     }
 
-    .film_tags {
+    .tags {
       margin-top: 30px;
       margin-bottom: 10px;
       display: flex;
       opacity: 60%;
 
-      span {
+      div {
         display: flex;
 
         p ~ p::before {
@@ -138,38 +117,26 @@ const filmReleaseDate = () => {
       }
 
       & > p,
-      span {
+      div {
         margin-right: 10px;
         padding-left: 10px;
         border-left: 1px solid white;
       }
 
-      & > span:first-child {
+      & > div:first-child {
         border-left: none;
         padding-left: 0px;
       }
     }
-    .film_companies {
+
+    .companies {
       display: flex;
       flex-wrap: wrap;
       font-style: italic;
       margin-top: -10px;
-
-      & > span:first-child::after {
-        content: ', ';
-        margin-right: 5px;
-      }
-
-      span ~ span::after {
-        content: ', ';
-        margin-right: 5px;
-      }
-
-      & > span:last-child::after {
-        content: '';
-      }
     }
-    .film_overview {
+
+    .overview {
       display: flex;
       margin-top: 20px;
       font-size: 20px;
