@@ -29,11 +29,13 @@ import findInput from './findInput.vue'
 .main_container {
   display: flex;
   justify-content: center;
+  height: fit-content;
+  @media (max-width: 890px) {
+    }
   .content_container {
     margin: 50px;
-    padding-top: 30px;
+    padding: 30px;
     width: 1200px;
-    height: fit-content;
     background-color: $general-background_color;
     border-radius: 25px;
     box-shadow: 10px 10px 25px $box-shadow_color;

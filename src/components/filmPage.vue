@@ -32,18 +32,22 @@ const filmReleaseDate = () => {
       <p class="film_tagline">{{ film?.tagline }}</p>
       <div class="film_tags">
         <span>
-          <p v-for="genre in film?.genres" :key="genre.id">{{ genre.name }}</p>
+          <p v-for="genre in film?.genres" :key="genre.id">{{ genre?.name }}</p>
         </span>
         <span>
           <p v-for="country in film?.production_countries" :key="country.iso_3166_1">
-            {{ country.iso_3166_1 }}
+            {{ country?.iso_3166_1 }}
           </p>
         </span>
         <p>{{ filmReleaseDate() }}</p>
-        <p>{{ film.runtime }} min</p>
+        <p>{{ film?.runtime }} min</p>
       </div>
-      <p v-for="company in film?.production_companies" :key="company.id">{{ company.name }}</p>
-      <p>{{ film.overview }}</p>
+      <div class="film_companies">
+        <span v-for="company in film?.production_companies" :key="company.id">{{
+          company.name
+        }}</span>
+      </div>
+      <p class="film_overview">{{ film.overview }}</p>
     </div>
   </div>
 </template>
@@ -54,6 +58,20 @@ const filmReleaseDate = () => {
   display: flex;
   flex-direction: row;
   position: relative;
+  padding-left: 30px;
+  width: 850px;
+  @media (max-width: 1150px) {
+    width: 780px;
+  }
+  @media (max-width: 1070px) {
+    width: 700px;
+  }
+  @media (max-width: 970px) {
+    width: 600px;
+  }
+  @media (max-width: 890px) {
+    flex-direction: column;
+  }
 
   .poster_container {
     position: relative;
@@ -74,12 +92,20 @@ const filmReleaseDate = () => {
     display: flex;
     flex-direction: column;
     position: absolute;
-    left: 230px;
-    width: 320px;
+    left: 250px;
     color: $general-text_color;
+    padding-top: 40px;
+
+    @media (max-width: 890px) {
+      position: relative;
+      left: 0;
+      padding-top: 20px;
+      width: 300px;
+    }
 
     .website-title_container {
       display: flex;
+      opacity: 60;
 
       .color_text {
         color: $emphasis-color;
@@ -99,6 +125,7 @@ const filmReleaseDate = () => {
 
     .film_tags {
       margin-top: 30px;
+      margin-bottom: 10px;
       display: flex;
       opacity: 60%;
 
@@ -121,6 +148,32 @@ const filmReleaseDate = () => {
         border-left: none;
         padding-left: 0px;
       }
+    }
+    .film_companies {
+      display: flex;
+      flex-wrap: wrap;
+      font-style: italic;
+      margin-top: -10px;
+
+      & > span:first-child::after {
+        content: ', ';
+        margin-right: 5px;
+      }
+
+      span ~ span::after {
+        content: ', ';
+        margin-right: 5px;
+      }
+
+      & > span:last-child::after {
+        content: '';
+      }
+    }
+    .film_overview {
+      display: flex;
+      margin-top: 20px;
+      font-size: 20px;
+      line-height: 1.5em;
     }
   }
 }
