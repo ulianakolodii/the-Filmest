@@ -22,6 +22,12 @@ import { RouterLink } from 'vue-router'
   width: 200px;
   height: auto;
   border-right: 1px solid $sidebar-border_color;
+  @media (max-width: 560px) {
+    width: 100%;
+    align-items: center;
+    border-right: none;
+    border-top: 1px solid $sidebar-border_color;
+  }
 
   .menu_title {
     color: $general-text_color;

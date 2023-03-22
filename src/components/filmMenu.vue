@@ -33,13 +33,13 @@ onMounted(async () => {
 <template>
   <div class="film_container">
     <randomFilm />
-    <div class="popular_films">
-      <ul class="films_list">
-        <li class="film_item" v-for="film in films?.results" :key="film.title">
-          <p class="film_title">{{ film.title }}</p>
-          <p class="film_overview">{{ film.overview }}</p>
-          <button class="discover_button">
-            <RouterLink class="discover_link" :to="`film/${film.id}`">...more</RouterLink>
+    <div class="popular-films">
+      <ul class="list">
+        <li class="film-item" v-for="film in films?.results" :key="film.title">
+          <p class="title">{{ film.title }}</p>
+          <p class="overview">{{ film.overview }}</p>
+          <button class="discover-button">
+            <RouterLink class="discover-link" :to="`film/${film.id}`">...more</RouterLink>
           </button>
         </li>
       </ul>
@@ -49,24 +49,37 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 @import '../utilities/common.scss';
-.films_list {
+.list {
   margin: 25px;
   display: flex;
   flex-wrap: wrap;
   color: $general-text_color;
+  @media (max-width: 560px) {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
 
-  .film_item {
+  .film-item {
     margin: 10px;
     padding: 20px;
     height: 50%;
     width: 30%;
     background-color: rgba(($general-text_color), 0.1);
     border-radius: 5%;
+    @media (max-width: 990px) {
+      width: 46%;
+  }
+  @media (max-width: 890px) {
+      width: 45%;
+  }
+    @media (max-width: 790px) {
+      width: 100%;
+  }
 
-    .film_title {
+    .title {
       font-size: 25px;
     }
-    .film_overview {
+    .overview {
       margin-top: 20px;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
@@ -74,14 +87,14 @@ onMounted(async () => {
       text-overflow: ellipsis;
       display: -webkit-box;
     }
-    .discover_button {
+    .discover-button {
       max-width: 300px;
       width: 100%;
       margin-top: 15px;
       border-radius: 25px;
       text-align: right;
 
-      .discover_link {
+      .discover-link {
         font-size: 14px;
         color: $emphasis-color;
         text-decoration: none;

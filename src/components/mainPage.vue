@@ -42,11 +42,18 @@ main {
     flex-direction: column;
     border-radius: 24px;
     padding: 30px;
+    @media (max-width: 560px) {
+      width: 100vw;
+    }
 
     .header {
       display: flex;
       flex-direction: row;
       align-items: center;
+      @media (max-width: 560px) {
+        flex-direction: column;
+        align-items: center;
+      }
       .main-title {
         font-size: 36px;
         padding: 16px;
@@ -56,6 +63,9 @@ main {
         align-items: center;
         gap: 4px;
         color: $general-text_color;
+        @media (max-width: 560px) {
+          margin-right: 0px;
+        }
 
         .color-text {
           color: $emphasis-color;
@@ -66,6 +76,9 @@ main {
     .body {
       display: flex;
       flex-direction: row;
+      @media (max-width: 560px) {
+        flex-direction: column-reverse;
+      }
     }
 
     .content {

@@ -16,5 +16,8 @@ input {
   border: 1px solid $general-text_color;
   border-radius: 25px;
   padding-left: 10px;
+  @media (max-width: 560px) {
+    margin-bottom: 20px;
+  }
 }
 </style>
