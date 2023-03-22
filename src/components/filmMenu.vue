@@ -3,28 +3,8 @@ import { RouterLink } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import randomFilm from './randomFilm.vue'
 import { fetchFilms } from '../api/films'
-// import type { Film } from '../api/films'
 
 const films = ref()
-
-// const filmss = ({
-//   movieID,
-//   original_title,
-//   tagline,
-//   overview,
-//   homepage,
-//   poster,
-//   production,
-//   production_countries,
-//   genre,
-//   release,
-//   vote,
-//   runtime,
-//   revenue,
-//   backdrop
-// }: Film) => {
-// }
-
 onMounted(async () => {
   films.value = await fetchFilms()
 })
@@ -68,13 +48,13 @@ onMounted(async () => {
     border-radius: 5%;
     @media (max-width: 990px) {
       width: 46%;
-  }
-  @media (max-width: 890px) {
+    }
+    @media (max-width: 890px) {
       width: 45%;
-  }
+    }
     @media (max-width: 790px) {
       width: 100%;
-  }
+    }
 
     .title {
       font-size: 25px;

@@ -1,16 +1,40 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { onBeforeMount, onMounted, ref } from 'vue'
+import { fetchFilms } from '../api/films'
+
+const films = ref()
+let randomIndex = 0
+
+onBeforeMount(async () => {
+  films.value = await fetchFilms()
+  const getRandomFilmIndex = () => {
+    randomIndex = Math.floor(Math.random() * films.value.results.length)
+    return randomIndex
+  }
+  getRandomFilmIndex()
+})
 </script>
 
 <template>
-  <div class="random_container">
-    <!-- <span class="film_title">Blade Runner 2049</span> -->
-    <div class="img_wrapper"><img src="https://images2.alphacoders.com/870/870886.jpg" /></div>
-    <div class="film_buttons">
-      <button class="watch_button">
-        <RouterLink class="watch_link" to="film/1">watch</RouterLink>
+  <div class="random-container">
+    <span v-if="films" class="random-title">{{ films.results[randomIndex].title }}</span>
+    <div class="random-poster">
+      <img
+        v-if="films"
+        :src="`https://image.tmdb.org/t/p/w500${films.results[randomIndex].poster_path}`"
+      />
+    </div>
+    <div class="random-buttons">
+      <button class="random-watch-button">
+        <RouterLink
+          v-if="films"
+          class="random-watch-link"
+          :to="`film/${films.results[randomIndex].id}`"
+          >watch</RouterLink
+        >
       </button>
-      <button class="add_button">+</button>
+      <button class="random-add-button">+</button>
     </div>
   </div>
 </template>
@@ -18,40 +42,48 @@ import { RouterLink } from 'vue-router'
 <style scoped lang="scss">
 @import '../utilities/common.scss';
 
-.film_title {
-  position: absolute;
-  bottom: 50px;
+.random-title {
+  position: relative;
+  z-index: 10;
+  margin-bottom: -200px;
 }
-.img_wrapper {
+.random-poster {
   margin: 0 30px;
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 950px;
+  max-width: 900px;
   height: 200px;
   overflow: hidden;
   border-radius: 25px;
+
+  img {
+    width: 900px;
+    filter: blur(6px);
+  }
 }
-.film_buttons {
+.random-buttons {
+  position: relative;
+  z-index: 10;
   margin-top: -50px;
   margin-left: 55px;
   max-width: 130px;
   display: flex;
   justify-content: space-around;
 
-  .watch_button {
+  .random-watch-button {
     width: 70px;
     height: 35px;
     border-radius: 15px;
     background-color: $important_button-color;
     text-decoration: none;
-    .watch_link {
+    .random-watch-link {
       color: $general-text_color;
       text-decoration: none;
     }
   }
 
-  .add_button {
+  .random-add-button {
     width: 40px;
     height: 35px;
     border-radius: 15px;

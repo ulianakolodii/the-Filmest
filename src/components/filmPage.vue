@@ -15,7 +15,7 @@ onMounted(async () => {
   <div class="main-container">
     <div class="poster-container">
       <img class="poster-image" :src="`https://image.tmdb.org/t/p/w500${film?.poster_path}`" />
-      <div class="poster-shade"></div>
+      <div v-if="film" class="poster-shade"></div>
     </div>
     <div class="info-container">
       <div class="website-title">
@@ -61,6 +61,7 @@ onMounted(async () => {
 
     .poster-image {
       max-width: 250px;
+      max-height: 375px;
     }
 
     .poster-shade {
@@ -79,8 +80,8 @@ onMounted(async () => {
     color: $general-text_color;
     padding-top: 40px;
     @media (max-width: 970px) {
-    margin-left: 24px;
-  }
+      margin-left: 24px;
+    }
 
     .website-title {
       display: flex;
@@ -141,6 +142,9 @@ onMounted(async () => {
       margin-top: 20px;
       font-size: 20px;
       line-height: 1.5em;
+      @media (max-width: 560px) {
+        margin-bottom: 40px;
+      }
     }
   }
 }
