@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { onBeforeMount, onMounted, ref } from 'vue'
-import { fetchFilms } from '../api/films'
+import { onBeforeMount, ref } from 'vue'
+import { randomFilms } from '../api/films'
 
 const films = ref()
 let randomIndex = 0
 
 onBeforeMount(async () => {
-  films.value = await fetchFilms()
+  films.value = await randomFilms()
   const getRandomFilmIndex = () => {
     randomIndex = Math.floor(Math.random() * films.value.results.length)
     return randomIndex
