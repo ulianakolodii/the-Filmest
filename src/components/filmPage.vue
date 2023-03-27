@@ -2,7 +2,12 @@
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { fetchFilm } from '../api/films'
+import { useStore } from 'vuex'
+const store = useStore()
 const film = ref()
+const addFilm = (favFilm: Object) => {
+  store.commit('addFilm', favFilm)
+}
 
 const route = useRoute()
 onMounted(async () => {
@@ -51,7 +56,7 @@ onMounted(async () => {
         {{ film?.production_companies?.map((el) => el.name).join(', ') }}
       </div>
       <div class="overview">{{ film?.overview }}</div>
-      <button class="add-button">★</button>
+      <button class="add-button" @click="addFilm(film)">★</button>
     </div>
   </div>
 </template>

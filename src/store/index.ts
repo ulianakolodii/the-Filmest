@@ -12,13 +12,17 @@ const state: State = {
 export const store = createStore({
   state,
   mutations: {
-    addFilm(favFilm) {
-      state.favFilms.push(favFilm)
+    addFilm(prevState, payload) {
+      state.favFilms.push({ title: payload.title, year: payload.release_date.slice(0, 4) })
+      console.log(state.favFilms)
     }
   },
   actions: {
-    addFilm({ commit }) {
-      commit('addFilm')
+    // addFilm({ commit }, title: string, year: number) {
+    //   commit('addFilm', title, year)
+    // }
+    addFilm(context) {
+      context.commit('addFilm')
     }
   },
   getters: {
