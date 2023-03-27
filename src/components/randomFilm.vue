@@ -2,6 +2,11 @@
 import { RouterLink } from 'vue-router'
 import { onBeforeMount, ref } from 'vue'
 import { randomFilms } from '../api/films'
+import { useStore } from 'vuex'
+const store = useStore()
+const addFilm = (favFilm: Object) => {
+  store.commit('addFilm', favFilm)
+}
 
 const films = ref()
 let randomIndex = 0
@@ -40,7 +45,7 @@ onBeforeMount(async () => {
           >watch</RouterLink
         >
       </button>
-      <button class="add-button">★</button>
+      <button class="add-button" @click="addFilm(films.results[randomIndex])">★</button>
     </div>
   </div>
 </template>

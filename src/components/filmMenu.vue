@@ -16,8 +16,8 @@ onMounted(async () => {
     <div class="popular-films">
       <ul class="list">
         <li class="film-item" v-for="film in films?.results" :key="film.title">
-          <p class="title">{{ film.title }}</p>
-          <p class="overview">{{ film.overview }}</p>
+          <span class="title">{{ film.title }}</span>
+          <span class="overview">{{ film.overview }}</span>
           <button class="discover-button">
             <RouterLink class="discover-link" :to="`film/${film.id}`">...more</RouterLink>
           </button>
