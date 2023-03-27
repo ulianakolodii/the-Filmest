@@ -14,7 +14,16 @@ onMounted(async () => {
 <template>
   <div class="main-container">
     <div class="poster-container">
-      <img class="poster-image" :src="`https://image.tmdb.org/t/p/w500${film?.poster_path}`" />
+      <img
+        v-if="film?.poster_path !== null"
+        class="poster-image"
+        :src="`https://image.tmdb.org/t/p/w500${film?.poster_path}`"
+      />
+      <img
+        class="poster-image"
+        v-if="film?.poster_path === null"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+      />
       <div v-if="film" class="poster-shade"></div>
     </div>
     <div class="info-container">
@@ -42,6 +51,7 @@ onMounted(async () => {
         {{ film?.production_companies?.map((el) => el.name).join(', ') }}
       </div>
       <div class="overview">{{ film?.overview }}</div>
+      <button class="add-button">★</button>
     </div>
   </div>
 </template>
@@ -58,6 +68,9 @@ onMounted(async () => {
     display: flex;
     position: relative;
     padding-left: 30px;
+    @media (max-width: 970px) {
+      width: 300px;
+    }
 
     .poster-image {
       max-width: 250px;
@@ -67,8 +80,9 @@ onMounted(async () => {
     .poster-shade {
       position: absolute;
       top: 0;
-      width: 250px;
-      height: 390px;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, $general-background_color 100%);
     }
   }
@@ -145,6 +159,15 @@ onMounted(async () => {
       @media (max-width: 560px) {
         margin-bottom: 40px;
       }
+    }
+
+    .add-button {
+      width: 40px;
+      height: 35px;
+      border-radius: 15px;
+      background-color: rgb(226, 226, 226, 0.4);
+      color: $general-text_color;
+      font-weight: bold;
     }
   }
 }

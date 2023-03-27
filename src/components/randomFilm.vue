@@ -21,8 +21,12 @@ onBeforeMount(async () => {
     <div class="random-poster">
       <span v-if="films" class="random-title">{{ films.results[randomIndex].title }}</span>
       <img
-        v-if="films"
+        v-if="films && films.results[randomIndex].poster_path !== null"
         :src="`https://image.tmdb.org/t/p/w500${films.results[randomIndex].poster_path}`"
+      />
+      <img
+        v-if="films && films.results[randomIndex].poster_path === null"
+        src="https://tacm.com/wp-content/uploads/2018/01/no-image-available.jpeg"
       />
       <div v-if="films" class="poster-shade"></div>
     </div>
@@ -36,7 +40,7 @@ onBeforeMount(async () => {
           >watch</RouterLink
         >
       </button>
-      <button class="random-add-button">+</button>
+      <button class="add-button">★</button>
     </div>
   </div>
 </template>
@@ -47,12 +51,6 @@ onBeforeMount(async () => {
 .random-film-container {
   display: flex;
   flex-direction: column;
-  .random-title {
-    z-index: 1;
-    font-size: 36px;
-    color: $general-text_color;
-    padding: 10px;
-  }
   .random-poster {
     margin: 0 30px;
     display: flex;
@@ -63,6 +61,14 @@ onBeforeMount(async () => {
     overflow: hidden;
     border-radius: 24px;
     position: relative;
+
+    .random-title {
+      z-index: 1;
+      font-size: 36px;
+      color: $general-text_color;
+      padding: 10px;
+      text-align: center;
+    }
 
     img {
       filter: blur(6px);
@@ -107,7 +113,7 @@ onBeforeMount(async () => {
       }
     }
 
-    .random-add-button {
+    .add-button {
       width: 40px;
       height: 35px;
       border-radius: 15px;
