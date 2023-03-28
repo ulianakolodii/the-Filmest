@@ -1,26 +1,30 @@
 import { createStore } from 'vuex'
 
-export type State = { favFilms: Array<Object> }
+export type State = { favFilms: Record<string, string> }
 
 const state: State = {
-  favFilms: []
+  favFilms: JSON.parse(localStorage.getItem('favFilms') || '{}')
+}
+
+const saveFavFilms = (favFilms: Record<string, string>) => {
+  localStorage.setItem(
+    'favFilms',
+    JSON.stringify(Object.fromEntries(Object.entries(favFilms).filter(([key, value]) => value)))
+  )
 }
 
 export const store = createStore({
   state,
   mutations: {
-    addFilm(prevState, payload) {
-      state.favFilms.push({
-        id: payload.id,
-        overview: payload.overview,
-        poster_path: payload.poster_path,
-        title: payload.title
-      })
+    ADD_FILM(context, payload) {
+      const currentValue = context.favFilms[payload.id]
+      context.favFilms[payload.id] = currentValue ? '' : '1'
+      saveFavFilms(context.favFilms)
     }
   },
   actions: {
-    addFilm(context) {
-      context.commit('addFilm')
+    addFilm({ commit }) {
+      commit('ADD_FILM')
     }
   },
   getters: {

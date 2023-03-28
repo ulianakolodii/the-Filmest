@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
+import { fetchFilm } from '../api/films'
 const store = useStore()
-const favFilms = ref(store.state.favFilms)
+const favFilms = ref(store.getters.favFilms)
+let favoriteFilms = ref()
+
+onMounted(async () => {
+  favoriteFilms.value = await Promise.all(Object.keys(favFilms.value).map(fetchFilm))
+})
 </script>
 
 <template>
@@ -12,12 +18,15 @@ const favFilms = ref(store.state.favFilms)
       <RouterLink class="discover-link" to="/">all fims</RouterLink> to choose
     </span>
     <ul class="fav-list" v-else>
-      <li class="fav-film-item" v-for="favFilm in favFilms" :key="favFilm.title">
-        <img class="fav-poster" :src="`https://image.tmdb.org/t/p/w500${favFilm?.poster_path}`" />
-        <span class="fav-title">{{ favFilm?.title }}</span>
-        <span class="fav-overview">{{ favFilm?.overview }}</span>
+      <li class="fav-film-item" v-for="favoriteFilm in favoriteFilms" :key="favoriteFilm.title">
+        <img
+          class="fav-poster"
+          :src="`https://image.tmdb.org/t/p/w500${favoriteFilm?.poster_path}`"
+        />
+        <span class="fav-title">{{ favoriteFilm?.title }}</span>
+        <span class="fav-overview">{{ favoriteFilm?.overview }}</span>
         <button class="discover-button">
-          <RouterLink class="discover-link" :to="`film/${favFilm.id}`">...more</RouterLink>
+          <RouterLink class="discover-link" :to="`film/${favoriteFilm.id}`">...more</RouterLink>
         </button>
       </li>
     </ul>
@@ -37,6 +46,9 @@ const favFilms = ref(store.state.favFilms)
     color: $general-text-color;
     font-size: 25px;
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: 10px;
 
     a {
       text-decoration: none;

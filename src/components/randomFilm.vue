@@ -5,7 +5,7 @@ import { randomFilms } from '../api/films'
 import { useStore } from 'vuex'
 const store = useStore()
 const addFilm = (favFilm: Object) => {
-  store.commit('addFilm', favFilm)
+  store.commit('ADD_FILM', favFilm)
 }
 
 const films = ref()

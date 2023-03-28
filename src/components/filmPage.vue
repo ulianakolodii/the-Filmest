@@ -6,9 +6,8 @@ import { useStore } from 'vuex'
 const store = useStore()
 const film = ref()
 const addFilm = (favFilm: Object) => {
-  store.commit('addFilm', favFilm)
+  store.commit('ADD_FILM', favFilm)
 }
-
 const route = useRoute()
 onMounted(async () => {
   const filmId = route.params.id
