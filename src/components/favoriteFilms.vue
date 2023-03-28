@@ -13,7 +13,7 @@ onMounted(async () => {
 
 <template>
   <div class="fav-films_container">
-    <span v-if="favFilms.length === 0" class="empty-fav-films">
+    <span v-if="Object.keys(favFilms).length === 0" class="empty-fav-films">
       No Favorites :c You can go back to
       <RouterLink class="discover-link" to="/">all fims</RouterLink> to choose
     </span>
