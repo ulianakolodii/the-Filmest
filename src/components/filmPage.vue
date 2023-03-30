@@ -1,18 +1,23 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { fetchFilm } from '../api/films'
 import { useStore } from 'vuex'
+
 const store = useStore()
 const film = ref()
-const addFilm = (favFilm: Object) => {
-  store.commit('ADD_FILM', favFilm)
-}
 const route = useRoute()
+
+const isFavorite = computed(() => store.getters.favFilms[route.params.id])
+
 onMounted(async () => {
   const filmId = route.params.id
   film.value = await fetchFilm(filmId)
 })
+
+const toggleFilm = (favFilm: Object) => {
+  store.commit('TOGGLE_FILM', favFilm)
+}
 </script>
 
 <template>
@@ -55,7 +60,13 @@ onMounted(async () => {
         {{ film?.production_companies?.map((el) => el.name).join(', ') }}
       </div>
       <div class="overview">{{ film?.overview }}</div>
-      <button class="add-button" @click="addFilm(film)">★</button>
+      <button
+        class="favorite-button"
+        @click="toggleFilm(film)"
+        v-bind:class="{ favorite: isFavorite }"
+      >
+        ★
+      </button>
     </div>
   </div>
 </template>
@@ -165,13 +176,17 @@ onMounted(async () => {
       }
     }
 
-    .add-button {
+    .favorite-button {
       width: 40px;
       height: 35px;
       border-radius: 15px;
-      background-color: rgb(226, 226, 226, 0.4);
+      background-color: $add-button-color;
       color: $general-text_color;
       font-weight: bold;
+    }
+    .favorite {
+      color: $emphasis-color;
+      background-color: $background-emphasis-color;
     }
   }
 }

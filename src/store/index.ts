@@ -11,21 +11,28 @@ const saveFavFilms = (favFilms: Record<string, string>) => {
     'favFilms',
     JSON.stringify(Object.fromEntries(Object.entries(favFilms).filter(([key, value]) => value)))
   )
+
+  console.log(
+    JSON.stringify(Object.fromEntries(Object.entries(favFilms).filter(([key, value]) => value)))
+  )
 }
+
 
 export const store = createStore({
   state,
   mutations: {
-    ADD_FILM(context, payload) {
+    TOGGLE_FILM(context, payload) {
       const currentValue = context.favFilms[payload.id]
       context.favFilms[payload.id] = currentValue ? '' : '1'
       saveFavFilms(context.favFilms)
     }
+    
   },
   actions: {
-    addFilm({ commit }) {
-      commit('ADD_FILM')
+    toggleFilm({ commit }) {
+      commit('TOGGLE_FILM')
     }
+
   },
   getters: {
     favFilms(state) {

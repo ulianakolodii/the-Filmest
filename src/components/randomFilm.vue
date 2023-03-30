@@ -1,24 +1,27 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount, computed, ref } from 'vue'
 import { randomFilms } from '../api/films'
 import { useStore } from 'vuex'
 const store = useStore()
-const addFilm = (favFilm: Object) => {
-  store.commit('ADD_FILM', favFilm)
+const toggleFilm = (favFilm: Object) => {
+  store.commit('TOGGLE_FILM', favFilm)
 }
 
 const films = ref()
 let randomIndex = 0
+let isFavorite;
 
 onBeforeMount(async () => {
   films.value = await randomFilms()
   const getRandomFilmIndex = () => {
     randomIndex = Math.floor(Math.random() * films.value.results.length)
+    isFavorite = computed(() => store.getters.favFilms[films.value.results[randomIndex].id])
     return randomIndex
   }
   getRandomFilmIndex()
 })
+
 </script>
 
 <template>
@@ -45,7 +48,7 @@ onBeforeMount(async () => {
           >watch</RouterLink
         >
       </button>
-      <button class="add-button" @click="addFilm(films.results[randomIndex])">★</button>
+      <button class="toggle-button" @click="toggleFilm(films.results[randomIndex])" v-bind:class="{ favorite: isFavorite }">★</button>
     </div>
   </div>
 </template>
@@ -118,13 +121,18 @@ onBeforeMount(async () => {
       }
     }
 
-    .add-button {
+    .toggle-button {
       width: 40px;
       height: 35px;
       border-radius: 15px;
       background-color: rgb(226, 226, 226, 0.4);
       color: $general-text_color;
       font-weight: bold;
+    }
+
+    .favorite {
+      color: $emphasis-color;
+      background-color: $background-emphasis-color;
     }
   }
 }
