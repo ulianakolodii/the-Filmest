@@ -1,8 +1,21 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
+const searchedTitle = ref()
+
+const handleSubmit = () => {
+  store.dispatch('searchFilm', searchedTitle.value)
+}
+</script>
 
 <template>
   <div class="input_container">
-    <input placeholder="search..." />
+    <form @submit.prevent="handleSubmit">
+      <input v-model="searchedTitle" placeholder="search..." />
+      <button type="submit">search</button>
+    </form>
   </div>
 </template>
 

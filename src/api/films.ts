@@ -67,8 +67,16 @@ export const fetchFilm = async (filmId: string | string[]) => {
 
 export const randomFilms = async () => {
   const res = await fetch(
-    'https://api.themoviedb.org/3/discover/movie/?certification_country=US&certification=R&sort_by=vote_average.desc&api_key=cfe422613b250f702980a3bbf9e90716'
+    'https://api.themoviedb.org/3//discover/movie?primary_release_date.gte=2023-01-01&primary_release_date.lte=2023-01-31&api_key=cfe422613b250f702980a3bbf9e90716'
   )
   const films: Array<Film> | { error: string } = await res.json()
+  return films
+}
+
+export const searchFilms = async (searchedTitle: string) => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/search/movie?query=${searchedTitle}&api_key=cfe422613b250f702980a3bbf9e90716`
+  )
+  const films: Array<Film> | Film | { error: string } = await res.json()
   return films
 }

@@ -1,25 +1,51 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed, watch } from 'vue'
 import randomFilm from './randomFilm.vue'
-import { fetchFilms } from '../api/films'
+import { fetchFilms, searchFilms } from '../api/films'
+import { useStore } from 'vuex'
 
-const films = ref()
+const store = useStore()
+
+const popularFilms = ref()
+const searchedFilms = computed(() => store.getters.searchedFilms)
+
 onMounted(async () => {
-  films.value = await fetchFilms()
+  popularFilms.value = await fetchFilms()
 })
 </script>
-
+ß
 <template>
   <div class="film_container">
     <randomFilm />
     <div class="popular-films">
-      <ul class="list">
-        <li class="film-item" v-for="film in films?.results" :key="film.title">
-          <span class="title">{{ film.title }}</span>
-          <span class="overview">{{ film.overview }}</span>
+      <ul v-if="Object.keys(searchedFilms).includes('results')" class="list">
+        <li
+          class="film-item"
+          v-for="serachedFilm in searchedFilms?.results"
+          :key="serachedFilm.title"
+        >
+        <img
+          class="fav-poster"
+          :src="`https://image.tmdb.org/t/p/w500${serachedFilm?.poster_path}`"
+        />
+          <span class="title">{{ serachedFilm.title }}</span>
+          <span class="overview">{{ serachedFilm.overview }}</span>
           <button class="discover-button">
-            <RouterLink class="discover-link" :to="`film/${film.id}`">...more</RouterLink>
+            <RouterLink class="discover-link" :to="`film/${serachedFilm.id}`">...more</RouterLink>
+          </button>
+        </li>
+      </ul>
+      <ul v-else class="list">
+        <li class="film-item" v-for="popularFilm in popularFilms?.results" :key="popularFilm.title">
+          <img
+          class="fav-poster"
+          :src="`https://image.tmdb.org/t/p/w500${popularFilm?.poster_path}`"
+        />
+          <span class="title">{{ popularFilm.title }}</span>
+          <span class="overview">{{ popularFilm.overview }}</span>
+          <button class="discover-button">
+            <RouterLink class="discover-link" :to="`film/${popularFilm.id}`">...more</RouterLink>
           </button>
         </li>
       </ul>
