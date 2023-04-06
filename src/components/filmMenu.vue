@@ -2,7 +2,7 @@
 import { RouterLink } from 'vue-router'
 import { onMounted, ref, computed, watch } from 'vue'
 import randomFilm from './randomFilm.vue'
-import { fetchFilms, searchFilms } from '../api/films'
+import { fetchFilms } from '../api/films'
 import { useStore } from 'vuex'
 
 const store = useStore()
@@ -25,10 +25,16 @@ onMounted(async () => {
           v-for="serachedFilm in searchedFilms?.results"
           :key="serachedFilm.title"
         >
-        <img
-          class="fav-poster"
-          :src="`https://image.tmdb.org/t/p/w500${serachedFilm?.poster_path}`"
-        />
+          <img
+            v-if="serachedFilm?.poster_path !== null"
+            class="fav-poster"
+            :src="`https://image.tmdb.org/t/p/w500${serachedFilm?.poster_path}`"
+          />
+          <img
+            class="fav-poster"
+            v-if="serachedFilm?.poster_path === null"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+          />
           <span class="title">{{ serachedFilm.title }}</span>
           <span class="overview">{{ serachedFilm.overview }}</span>
           <button class="discover-button">
@@ -39,9 +45,9 @@ onMounted(async () => {
       <ul v-else class="list">
         <li class="film-item" v-for="popularFilm in popularFilms?.results" :key="popularFilm.title">
           <img
-          class="fav-poster"
-          :src="`https://image.tmdb.org/t/p/w500${popularFilm?.poster_path}`"
-        />
+            class="fav-poster"
+            :src="`https://image.tmdb.org/t/p/w500${popularFilm?.poster_path}`"
+          />
           <span class="title">{{ popularFilm.title }}</span>
           <span class="overview">{{ popularFilm.overview }}</span>
           <button class="discover-button">

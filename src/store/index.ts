@@ -1,10 +1,17 @@
 import { createStore } from 'vuex'
 import { searchFilms } from '../api/films'
+import { fetchFilm } from '../api/films'
 
-export type State = { favFilms: Record<string, string>; searchedTitle: string; searchedFilms: [] }
+export type State = {
+  favFilms: Record<string, string>
+  searchedTitle: string
+  searchedFilms: []
+  loadedFavorites: Array<Record<string, unknown>>
+}
 
 const state: State = {
   favFilms: JSON.parse(localStorage.getItem('favFilms') || '{}'),
+  loadedFavorites: [],
   searchedTitle: '',
   searchedFilms: []
 }
@@ -31,6 +38,9 @@ export const store = createStore({
     },
     SET_SEARCHED_FILMS(context, payload) {
       context.searchedFilms = payload
+    },
+    SET_LOADED_FAVORITES(context, payload) {
+      context.loadedFavorites = payload
     }
   },
   actions: {
@@ -41,11 +51,25 @@ export const store = createStore({
       commit('SEARCH_FILM', payload)
       const result = await searchFilms(payload)
       commit('SET_SEARCHED_FILMS', result)
+    },
+    fetchFavorites: async ({ commit, getters }) => {
+      commit(
+        'SET_LOADED_FAVORITES',
+        await Promise.all(Object.keys(getters.favFilms).map(fetchFilm))
+      )
     }
   },
   getters: {
     favFilms(state) {
-      return state.favFilms
+      return Object.keys(state.favFilms).reduce((acc, key) => {
+        if (!state.favFilms[key]) {
+          return acc
+        }
+        return {
+          ...acc,
+          [key]: state.favFilms[key]
+        }
+      }, {})
     },
     searchedTitle(state) {
       return state.searchedTitle

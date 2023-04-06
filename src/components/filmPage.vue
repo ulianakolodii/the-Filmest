@@ -8,7 +8,7 @@ const store = useStore()
 const film = ref()
 const route = useRoute()
 
-const isFavorite = computed(() => store.getters.favFilms[route.params.id])
+const isFavorite = computed(() => store.getters.favFilms[Number(route.params.id)])
 
 onMounted(async () => {
   const filmId = route.params.id

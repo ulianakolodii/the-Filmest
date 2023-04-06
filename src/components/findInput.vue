@@ -14,7 +14,7 @@ const handleSubmit = () => {
   <div class="input_container">
     <form @submit.prevent="handleSubmit">
       <input v-model="searchedTitle" placeholder="search..." />
-      <button type="submit">search</button>
+      <button class="search_button" type="submit">go</button>
     </form>
   </div>
 </template>
@@ -31,6 +31,20 @@ input {
   padding-left: 10px;
   @media (max-width: 560px) {
     margin-bottom: 20px;
+  }
+}
+
+.search_button {
+  width: 34px;
+  height: 30px;
+  color: $general-text_color;
+  background-color: $add-button-color;
+  border-radius: 25px;
+  margin-left: 8px;
+
+  &:hover {
+    background-color: $background-emphasis-color;
+    color: $emphasis-color;
   }
 }
 </style>
