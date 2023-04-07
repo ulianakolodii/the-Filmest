@@ -5,7 +5,11 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "target": "es5",
+    "lib": ["es2019", "dom"],
+    "esModuleInterop": true,
+    "ignoreDeprecations": "5.0"
   },
 
   "references": [

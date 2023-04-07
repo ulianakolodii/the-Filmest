@@ -6,7 +6,7 @@ export type State = {
   favFilms: Record<string, string>
   searchedTitle: string
   searchedFilms: []
-  loadedFavorites: Array<Record<string, unknown>>
+  loadedFavorites: Array<Record<string, string | number>>
 }
 
 const state: State = {
@@ -16,11 +16,13 @@ const state: State = {
   searchedFilms: []
 }
 
-const saveFavFilms = (favFilms: Record<string, string>) => {
+const saveFavFilms = (favFilms: Record<string, string | number>) => {
   localStorage.setItem(
     'favFilms',
     JSON.stringify(
-      Object.fromEntries(Object.entries(favFilms).filter(([key, value]: [number, number]) => value))
+      Object.fromEntries(
+        Object.entries(favFilms).filter(([key, value]: [string, string | number]) => value)
+      )
     )
   )
 }

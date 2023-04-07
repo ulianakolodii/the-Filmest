@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { onBeforeMount, computed, ref } from 'vue'
+import type { ComputedRef } from 'vue'
 import { randomFilms } from '../api/films'
 import { useStore } from 'vuex'
+import type { Film } from '../api/films'
 const store = useStore()
-const toggleFilm = (favFilm: Object) => {
+const toggleFilm = (favFilm: Film) => {
   store.commit('TOGGLE_FILM', favFilm)
 }
 
 const films = ref()
 let randomIndex = 0
-let isFavorite;
+let isFavorite: ComputedRef<boolean>
 
 onBeforeMount(async () => {
   films.value = await randomFilms()
@@ -21,7 +23,6 @@ onBeforeMount(async () => {
   }
   getRandomFilmIndex()
 })
-
 </script>
 
 <template>
@@ -48,7 +49,13 @@ onBeforeMount(async () => {
           >watch</RouterLink
         >
       </button>
-      <button class="toggle-button" @click="toggleFilm(films.results[randomIndex])" v-bind:class="{ favorite: isFavorite }">★</button>
+      <button
+        class="toggle-button"
+        @click="toggleFilm(films.results[randomIndex])"
+        v-bind:class="{ favorite: isFavorite }"
+      >
+        ★
+      </button>
     </div>
   </div>
 </template>

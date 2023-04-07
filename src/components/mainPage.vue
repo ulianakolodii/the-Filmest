@@ -8,10 +8,10 @@ import findInput from './findInput.vue'
   <main>
     <div class="wrapper">
       <div class="header">
-        <div class="main-title">
-          <p class="color-text">the</p>
-          Filmest
-        </div>
+        <RouterLink to="/" class="main-title"
+          ><p class="color-text">the</p>
+          Filmest</RouterLink
+        >
         <findInput />
       </div>
       <div class="body">
@@ -63,6 +63,7 @@ main {
         align-items: center;
         gap: 4px;
         color: $general-text_color;
+        text-decoration: none;
         @media (max-width: 560px) {
           margin-right: 0px;
         }

@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue'
 import { useStore } from 'vuex'
-import type { Film } from '@/api/films'
 const store = useStore()
-const favoriteFilms = computed(() => store.state.loadedFavorites as Array<Record<string, unknown>>)
+const favoriteFilms = computed(() => store.state.loadedFavorites as Array<Record<string, string | number>>)
 let filteredTitle = ref()
 let filteredFilms = ref()
 
@@ -49,7 +48,11 @@ onMounted(async () => {
       </div>
       <div v-else>
         <ul class="fav-list">
-          <li class="fav-film-item" v-for="favoriteFilm in favoriteFilms" :key="favoriteFilm.title">
+          <li
+            class="fav-film-item"
+            v-for="favoriteFilm in favoriteFilms"
+            :key="favoriteFilm?.title"
+          >
             <button class="delete_favorite" @click="removeFromFavorites(favoriteFilm)">x</button>
             <img
               class="fav-poster"

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { onMounted, ref, computed, watch } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import randomFilm from './randomFilm.vue'
 import { fetchFilms } from '../api/films'
 import { useStore } from 'vuex'
